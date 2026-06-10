@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'email' => 'mahasiswa@gmail.com',
             'password' => bcrypt('mahasiswa'),
             'role' => 'mahasiswa',
+            'npm' => '5520124089',
         ]);
     }
 }

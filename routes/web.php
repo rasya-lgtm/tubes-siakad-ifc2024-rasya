@@ -15,7 +15,7 @@ Route::get('/', function () {
 
 // Dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard.index');
 })->middleware(['auth'])->name('dashboard');
 
 // Profile 
@@ -25,19 +25,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Admin
-Route::middleware(['auth', 'isAdmin'])->group(function(){
-    Route::resource('dosen', DosenController::class);
-    Route::resource('mahasiswa', MahasiswaController::class);
-    Route::resource('matakuliah', MatakuliahController::class);
+// Resources (Shared routes, role logic is handled inside controllers/middleware)
+Route::middleware(['auth'])->group(function() {
+    // Admin only for these full resources
+    Route::middleware(['isAdmin'])->group(function() {
+        Route::resource('dosen', DosenController::class);
+        Route::resource('mahasiswa', MahasiswaController::class);
+        Route::resource('matakuliah', MatakuliahController::class);
+    });
+
+    // Shared resources (Both Admin and Mahasiswa use the same route name)
     Route::resource('krs', KrsController::class);
     Route::resource('jadwal', JadwalController::class);
-});
-
-//Mahasiswa
-Route::middleware(['auth', 'isMahasiswa'])->group(function(){
-    Route::resource('krs', KrsController::class)->only(['index', 'store', 'destroy']);
-    Route::get('jadwal', [JadwalController::class, 'index'])->name('jadwal.mahasiswa');
 });
 
 require __DIR__.'/auth.php';

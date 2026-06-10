@@ -14,9 +14,12 @@ class KrsController extends Controller
      */
     public function index()
     {
-        
-        $npm = auth()->user()->npm;
-        $dataKrs = Krs::where('npm', $npm)->orderByDesc('id')->get();
+        if (auth()->user()->role == 'admin') {
+            $dataKrs = Krs::orderByDesc('id')->get();
+        } else {
+            $npm = auth()->user()->npm;
+            $dataKrs = Krs::where('npm', $npm)->orderByDesc('id')->get();
+        }
         return view('krs.index', compact('dataKrs'));
     }
 
@@ -35,6 +38,11 @@ class KrsController extends Controller
      */
     public function store(Request $request)
     {
+        // Jika bukan admin, pastikan user punya NPM di profilnya
+        if (auth()->user()->role !== 'admin' && !auth()->user()->npm) {
+            return redirect()->back()->withErrors(['npm' => 'Profil Anda belum memiliki NPM. Silakan hubungi admin.'])->withInput();
+        }
+
         $validate = $request->validate([
             'npm' => 'required|max:10',
             'kode_matakuliah' => 'required|max:8',

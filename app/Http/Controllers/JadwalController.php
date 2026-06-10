@@ -14,7 +14,14 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $dataJadwal = Jadwal::orderByDesc('id')->get();
+        if (auth()->user()->role == 'admin') {
+            $dataJadwal = Jadwal::orderByDesc('id')->get();
+        } else {
+            $npm = auth()->user()->npm;
+            $dataJadwal = Jadwal::whereHas('matakuliah.krs', function($q) use ($npm) {
+                $q->where('npm', $npm);
+            })->orderByDesc('id')->get();
+        }
         return view('jadwal.index', compact('dataJadwal'));
     }
 
