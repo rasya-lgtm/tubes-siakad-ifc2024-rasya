@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->char('kelas',1);
             $table->string('hari',10);
-            $table->timestamp('jam');
+            $table->time('jam');
             $table->timestamps();
         });
     }

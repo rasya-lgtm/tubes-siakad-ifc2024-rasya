@@ -21,11 +21,11 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Mahasiswa',
+            'name' => 'Rasya Arkana',
             'email' => 'mahasiswa@gmail.com',
             'password' => bcrypt('mahasiswa'),
             'role' => 'mahasiswa',
-            'npm' => '5520124089',
+            'npm' => '5520124090',
         ]);
     }
 }

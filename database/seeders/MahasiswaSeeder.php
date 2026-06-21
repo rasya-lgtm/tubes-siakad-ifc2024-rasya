@@ -14,9 +14,9 @@ class MahasiswaSeeder extends Seeder
     public function run(): void
     {
             Mahasiswa::create([
-            'npm' => '5520124089',
+            'npm' => '5520124090',
             'nidn' => '5520204088',
-            'nama' => 'Taufik Al Hakim',
+            'nama' => 'Rasya Arkana',
         ]);
     }
 }
