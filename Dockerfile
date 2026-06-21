@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y \
     curl \
     && docker-php-ext-install pdo pdo_mysql zip
 
-# Install Node.js (buat build asset Vite)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
@@ -23,4 +22,4 @@ RUN npm install && npm run build
 
 EXPOSE 10000
 
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+CMD php artisan config:clear && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
