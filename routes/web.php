@@ -6,6 +6,7 @@ use App\Http\Controllers\KrsController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -39,6 +40,16 @@ Route::middleware(['auth'])->group(function() {
 
     Route::resource('krs', KrsController::class);
     Route::resource('jadwal', JadwalController::class);
+});
+
+//buat ping ke web biar ga mati
+Route::get('/ping-db', function () {
+    try {
+        DB::select('SELECT 1');
+        return response('Database OK', 200);
+    } catch (\Exception $e) {
+        return response('Database Error: ' . $e->getMessage(), 500);
+    }
 });
 
 require __DIR__.'/auth.php';
