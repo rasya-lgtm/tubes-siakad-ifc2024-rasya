@@ -1,3 +1,12 @@
+# LINK WEB
+[https://tubes-siakad-ifc2024-rasya.onrender.com/]
+# ACCOUNT
+email : admin@gmail.com
+password : admin
+
+email : mahasiswa@gmail.com
+password : mahasiswa
+
 # Sistem Informasi Akademik (SIAKAD) Sederhana
 
 ## a Deskripsi singkat aplikasi
